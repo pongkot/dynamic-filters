@@ -2,13 +2,15 @@ import filter from "./src/filter/index.ts";
 
 const main = async () => {
   // Assume filter set query from database by campaign id
-  const filterSetA = [
+  const filterSet = [
     "fetchCampaignById",
     "isCampaignAvaliable",
-    "isCodeOutOfStock",
   ];
-  console.log('filterSetA', filterSetA)
-  const result = await filter();
+  const result = await filter({
+    campaignId: 1,
+    policyNumber: "6924245361678388",
+    mobile: "0990209299",
+  }, filterSet);
   console.log("result", result);
 };
 

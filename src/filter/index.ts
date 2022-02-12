@@ -1,29 +1,24 @@
-import { ActionName, FilterName } from "../../constants.ts";
-import fetchCampaignByIdAction from "../campaign/actions/fetch-campaign-by-id.action.ts";
-import isCampaignAvaliableFilter from "../campaign/filters/is-campaign-avaliable.filter.ts";
+import registerFilter from "./register.filter.ts";
 import { TInput } from "./types/index.ts";
 
-const filter = async () => {
-  const filters$ = [
-    {
-      name: ActionName.FetchCampaignById,
-      value: fetchCampaignByIdAction,
-    },
-    {
-      name: FilterName.IsCampaignAvaliable,
-      value: isCampaignAvaliableFilter,
-    },
-  ];
+const isIn = (value: string, list: Array<string>) => list.includes(value);
 
-  const input: TInput = {
-    policyNumber: "pno-1234",
-    campaignId: 1,
-  };
+const filter = async (input: TInput, step: Array<string>) => {
   let store = {};
   let code = 200;
   let message = "Successful";
+  const filterList = registerFilter.map((filter) => filter.name);
+  const l = [];
 
-  for (const filter of filters$) {
+  for (const s of step) {
+    if (!isIn(s, filterList)) {
+      throw new Error("Invalid step");
+    }
+    const [i] = registerFilter.filter((f) => f.name === s);
+    l.push(i);
+  }
+
+  for (const filter of l) {
     const result = await filter.value.callback(input, store);
 
     console.log("Step:", filter.name, result.body?.code);

@@ -1,19 +1,15 @@
 import { TFilter, TInput } from "../../filter/types/index.ts";
+import { getCampaignById } from "../campaign.repository.ts";
 
 const fetchCampaignByIdAction: TFilter<Campaign> = {
-  callback: (input: TInput, _store: null) => {
+  callback: async (input: TInput, _store: null) => {
     const { campaignId } = input;
-    const campaign: Campaign = {
-      id: campaignId,
-      name: "Discount 1000 Bath",
-      start: new Date("2021-01-01"),
-      end: new Date("2022-01-31"),
-    };
+    const campaign = await getCampaignById(campaignId);
     return {
       next: true,
       body: {
         code: 200,
-        message: "Success",
+        message: "Successful",
       },
       emit: campaign,
     };

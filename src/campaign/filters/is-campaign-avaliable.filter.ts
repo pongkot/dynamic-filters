@@ -10,12 +10,10 @@ const isCampaignAvaliableFilter: TFilter<undefined> = {
       code: 200,
       message: "Successful",
     };
-    const submitDate = new Date("2022-01-01");
-    const { start: campaignStart, end: campaignEnd } = store;
-    const isSubmitDateGtCampaignStart =
-      submitDate.getTime() > campaignStart.getTime();
-    const isSubmitDateLtCampaignEnd =
-      submitDate.getTime() < campaignEnd.getTime();
+    const submitDate = new Date();
+    const { start, end } = store;
+    const isSubmitDateGtCampaignStart = submitDate.getTime() > start.getTime();
+    const isSubmitDateLtCampaignEnd = submitDate.getTime() < end.getTime();
     const isSubmitDateOnPeriod = isSubmitDateGtCampaignStart &&
       isSubmitDateLtCampaignEnd;
 
