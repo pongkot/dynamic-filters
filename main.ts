@@ -1,5 +1,8 @@
+import filter from "./src/filter/index.ts";
+
 const main = () => {
-  console.log(new Date());
+  const result = filter();
+  console.log("result", result);
 };
 
 main();
