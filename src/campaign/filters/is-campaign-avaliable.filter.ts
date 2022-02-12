@@ -1,10 +1,10 @@
 import { ActionName } from "../../../constants.ts";
-import { TFilter, TInput, TStore } from "../../filter/types/index.ts";
+import { TFilter, TInput } from "../../filter/types/index.ts";
 import { Campaign } from "../actions/fetch-campaign-by-id.action.ts";
 
-const isCampaignAvaliableFilter: TFilter<never> = {
+const isCampaignAvaliableFilter: TFilter<undefined> = {
   required: [ActionName.FetchCampaignById],
-  callback: (_input: TInput, store: TStore<Campaign>) => {
+  callback: (_input: TInput, store: Campaign) => {
     let next = true;
     let body = {
       code: 200,

@@ -1,7 +1,7 @@
-import { TFilter, TInput, TStore } from "../../filter/types/index.ts";
+import { TFilter, TInput } from "../../filter/types/index.ts";
 
 const fetchCampaignByIdAction: TFilter<Campaign> = {
-  callback: (input: TInput, _store: TStore<undefined>) => {
+  callback: (input: TInput, _store: null) => {
     const { campaignId } = input;
     const campaign: Campaign = {
       id: campaignId,
@@ -13,7 +13,7 @@ const fetchCampaignByIdAction: TFilter<Campaign> = {
       next: true,
       body: {
         code: 200,
-        message: "Successful",
+        message: "Success",
       },
       emit: campaign,
     };

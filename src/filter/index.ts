@@ -3,11 +3,17 @@ import fetchCampaignByIdAction from "../campaign/actions/fetch-campaign-by-id.ac
 import isCampaignAvaliableFilter from "../campaign/filters/is-campaign-avaliable.filter.ts";
 import { TInput } from "./types/index.ts";
 
-const filter = () => {
-  const filters = new Map();
-
-  filters.set(ActionName.FetchCampaignById, fetchCampaignByIdAction);
-  filters.set(FilterName.IsCampaignAvaliable, isCampaignAvaliableFilter);
+const filter = async () => {
+  const filters$ = [
+    {
+      name: ActionName.FetchCampaignById,
+      value: fetchCampaignByIdAction,
+    },
+    {
+      name: FilterName.IsCampaignAvaliable,
+      value: isCampaignAvaliableFilter,
+    },
+  ];
 
   const input: TInput = {
     policyNumber: "pno-1234",
@@ -17,19 +23,23 @@ const filter = () => {
   let code = 200;
   let message = "Successful";
 
-  filters.forEach((filter) => {
-    const { next, body, emit } = filter.callback(input, store);
+  for (const filter of filters$) {
+    const result = await filter.value.callback(input, store);
 
-    if (!next) {
-      code = body.code;
-      message = body.message;
-      return;
+    console.log("Step:", filter.name, result.body?.code);
+
+    if (!result.next) {
+      if (result.body) {
+        code = result.body.code;
+        message = result.body.message;
+        break;
+      }
     }
 
-    if (emit) {
-      store = { ...store, ...emit };
+    if (result.emit) {
+      store = { ...store, ...result.emit };
     }
-  });
+  }
 
   return {
     code,

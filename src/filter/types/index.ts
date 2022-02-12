@@ -10,12 +10,13 @@ export type TStore<T> = T;
 
 export type TFilter<T> = {
   required?: Array<ActionName | FilterName>;
-  callback: (input: TInput, store: TStore<never>) => {
+  // deno-lint-ignore no-explicit-any
+  callback: (input: TInput, store: any) => {
     next: boolean;
     body?: {
       code: number;
       message: string;
     };
+    emit?: T;
   };
-  emit?: T;
 };
