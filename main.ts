@@ -1,16 +1,26 @@
 import filter from "./src/filter/index.ts";
 
 const main = async () => {
-  // Assume filter set query from database by campaign id
+  // Assume client POST request
+  // POST checkout/1
+  const campaignId = 1;
+  const policyNumber = "6924245361678388";
+  const mobile = "0990209299";
+
+  // Assume filter set query from database by campaign id (1)
   const filterSet = [
     "fetchCampaignById",
     "isCampaignAvaliable",
   ];
+
+  // Filter process
   const result = await filter({
-    campaignId: 1,
-    policyNumber: "6924245361678388",
-    mobile: "0990209299",
+    campaignId,
+    policyNumber,
+    mobile,
   }, filterSet);
+
+  // Assume server response JSON
   console.log("result", result);
 };
 
