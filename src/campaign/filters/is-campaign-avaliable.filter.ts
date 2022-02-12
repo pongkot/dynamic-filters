@@ -4,14 +4,14 @@ import { Campaign } from "../actions/fetch-campaign-by-id.action.ts";
 
 const isCampaignAvaliableFilter: TFilter<undefined> = {
   required: [ActionName.FetchCampaignById],
-  callback: (_input: TInput, store: Campaign) => {
+  callback: (_input: TInput, store: { campaign: Campaign }) => {
     let next = true;
     let body = {
       code: 200,
       message: "Successful",
     };
     const submitDate = new Date();
-    const { start, end } = store;
+    const { campaign: { start, end } } = store;
     const isSubmitDateGtCampaignStart = submitDate.getTime() > start.getTime();
     const isSubmitDateLtCampaignEnd = submitDate.getTime() < end.getTime();
     const isSubmitDateOnPeriod = isSubmitDateGtCampaignStart &&

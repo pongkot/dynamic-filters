@@ -1,7 +1,7 @@
 import { TFilter, TInput } from "../../filter/types/index.ts";
 import { getCampaignById } from "../campaign.repository.ts";
 
-const fetchCampaignByIdAction: TFilter<Campaign> = {
+const fetchCampaignByIdAction: TFilter<{ campaign: Campaign }> = {
   callback: async (input: TInput, _store: null) => {
     const { campaignId } = input;
     const campaign = await getCampaignById(campaignId);
@@ -11,7 +11,7 @@ const fetchCampaignByIdAction: TFilter<Campaign> = {
         code: 200,
         message: "Successful",
       },
-      emit: campaign,
+      emit: { campaign },
     };
   },
 };
