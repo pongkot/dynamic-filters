@@ -3,11 +3,11 @@ import validateFilterSet from "./functions/validateFilterSet.ts";
 import { TInput } from "./types/index.ts";
 
 const filter = async (input: TInput, filterSet: Array<string>) => {
+  validateFilterSet(filterSet);
+
   let store = {};
   let code = 200;
   let message = "Successful";
-
-  validateFilterSet(filterSet);
   const filters = getFilterByFilterSet(filterSet);
 
   for (const filter of filters) {
