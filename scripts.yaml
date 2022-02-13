@@ -1,4 +1,4 @@
 scripts:
   start: 
-    desc: Run entry point
+    desc: Run entrypoint
     cmd: deno run main.ts
