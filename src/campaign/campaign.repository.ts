@@ -1,6 +1,8 @@
 import { Campaign } from "./actions/fetch-campaign-by-id.action.ts";
 
 export const getCampaignById = (id: number): Promise<Campaign> => {
+  id -= 1;
+
   const campaignList: Array<Campaign> = [
     {
       id: 1,
@@ -22,9 +24,9 @@ export const getCampaignById = (id: number): Promise<Campaign> => {
     },
   ];
 
-  return new Promise((resolve) => {
-    if (id > 3 || id < 1) {
-      throw new Error("campaign does not exist");
+  return new Promise((resolve, reject) => {
+    if (!(id > 0 && id < 4)) {
+      reject(new Error("Campaign does not exist"));
     }
     resolve(campaignList[id]);
   });

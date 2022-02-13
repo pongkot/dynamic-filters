@@ -1,24 +1,16 @@
-import registerFilter from "./register.filter.ts";
+import getFilterByFilterSet from "./functions/getFilterByFilterSet.ts";
+import validateFilterSet from "./functions/validateFilterSet.ts";
 import { TInput } from "./types/index.ts";
 
-const isIn = (value: string, list: Array<string>) => list.includes(value);
-
-const filter = async (input: TInput, step: Array<string>) => {
+const filter = async (input: TInput, filterSet: Array<string>) => {
   let store = {};
   let code = 200;
   let message = "Successful";
-  const filterList = registerFilter.map((filter) => filter.name);
-  const l = [];
 
-  for (const s of step) {
-    if (!isIn(s, filterList)) {
-      throw new Error("Invalid step");
-    }
-    const [i] = registerFilter.filter((f) => f.name === s);
-    l.push(i);
-  }
+  validateFilterSet(filterSet);
+  const filters = getFilterByFilterSet(filterSet);
 
-  for (const filter of l) {
+  for (const filter of filters) {
     const result = await filter.value.callback(input, store);
 
     console.log("Step:", filter.name, result.body?.code);

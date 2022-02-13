@@ -4,12 +4,26 @@ import { getCampaignById } from "../campaign.repository.ts";
 const fetchCampaignByIdAction: TFilter<{ campaign: Campaign }> = {
   callback: async (input: TInput, _store: null) => {
     const { campaignId } = input;
-    const campaign = await getCampaignById(campaignId);
+    let next = true;
+    let code = 200;
+    let message = "Successful";
+    let campaign = {} as Campaign;
+
+    try {
+      campaign = await getCampaignById(campaignId);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        next = false;
+        code = 400;
+        message = error.message;
+      }
+    }
+
     return {
-      next: true,
+      next,
       body: {
-        code: 200,
-        message: "Successful",
+        code,
+        message,
       },
       emit: { campaign },
     };
