@@ -1,8 +1,8 @@
-import registerFilter from "../register.filter.ts";
+import filterRegister from "../filter.register.ts";
 
 const getFilterByFilterSet = (
   filterSet: Array<string>,
-  filterControl = registerFilter,
+  filterControl = filterRegister,
 ) => {
   const result = [];
   for (const filterName of filterSet) {

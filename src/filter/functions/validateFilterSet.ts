@@ -1,9 +1,9 @@
+import filterRegister from "../filter.register.ts";
 import isIn from "../../common/functions/isIn.ts";
-import registerFilter from "../register.filter.ts";
 
 const validateFilterSet = (
   filterSet: Array<string>,
-  filterControl = registerFilter,
+  filterControl = filterRegister,
 ): boolean => {
   const filterControlNameList = filterControl.map((filter) => filter.name);
   for (const filterStep of filterControlNameList) {
