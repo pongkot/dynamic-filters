@@ -6,12 +6,13 @@ UI.
 ## System requirements
 
 - Deno 1.18.2 or higher
+- Velociraptor 1.4.0 or higher
 
 ## Scripts
 
 ```
 # Start
-npm start
+vr start
 ```
 
 ## Limitation
